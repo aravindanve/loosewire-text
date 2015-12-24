@@ -1,0 +1,290 @@
+! my web project
+! screens, data, forms and actions for my web projeect
+
+!*
+ * by @aravindanve
+ *!
+
+*
+    [feedback]
+
+www/*
+    [titlebar static]
+    [footer static]
+
+orgid/*
+    [titlebar]
+    [footer]
+
+[titlebar static]
+    logo action             -> www/ | test
+    log in                  -> www/login (1)
+    sign up?                -> #flash message #email              
+
+[titlebar]
+    logo action             -> orgid/
+    .search everything
+    search                  -> orgid/search
+    :message count
+    messages                -> [messages]
+    :notification count
+    notifications           -> [notifications]
+    help tour               -> #show help tour
+    more options            -> [more options]
+    feedback                -> orgid/feedback
+    scroll to top?          -> #scroll to top
+
+[messages]
+    :messages list  
+    open message            -> #message box popup
+    mark as read or unread  -> #
+    mark all as read        -> #
+    messages settings       -> orgid/settings/messages
+    see all messages        -> orgid/messages
+
+[notifications]
+    :notifications list
+    open notification       -> #go to path
+    mark as read or unread  -> #
+    mark all as read        -> #
+    notifications settings  -> orgid/settings/notifications
+    see all notifications   -> orgid/notifications
+
+[more options]
+    user profile            -> orgid/people/@username
+    account settings        -> orgid/settings
+    manage defaults         -> orgid/settings/defaults
+    terms and conditions    -> #_blank !www/terms-and-conditions
+    privacy policy          -> #_blank !www/privacy-policy
+    contact admin           -> orgid/contactadmin
+    about                   -> #_blank !www/about
+    log out                 -> #log out
+
+[footer]
+    sitemap                 -> #
+
+www/
+    .email      
+    subscribe               -> #flash message #email
+    sign up                 -> #flash message #email
+    log in                  -> www/login (1)
+
+www/login (1)
+    .orgid (domain)
+    next                    -> orgid/login (2)
+    find domain             -> www/find
+    :logged in as
+    go to logged in as      -> orgid/
+
+www/find
+    .email
+    find domain             -> #flash message #email
+    log in                  -> www/login (1)
+
+www/signup/@codeXYZ
+    .orgid (domain)
+    :owner email
+    .new password
+    .repeat password
+    create domain           -> orgid/setup/billing
+
+orgid/login (2)
+    :org image
+    :org name
+    .email
+    .password
+    .recaptcha?
+    login                   -> orgid/
+    forgot password         -> orgid/forgotpassword
+    find domain             -> www/find
+    :logged in as
+    go to logged in as      -> orgid/
+
+orgid/forgotpassword
+    .email
+    send password reset link    -> #email
+    log in                      -> orgid/login (2)
+    log in to another domain    -> www/login (1)
+
+orgid/resetpassword/@codeXYZ
+    .new password
+    .repeat password        
+    reset password          -> orgid/login (2) #flash message
+
+orgid/setup/billing
+    next                    -> orgid/setup/configure
+    
+orgid/setup/configure
+!* allows you to pick from a set 
+ * of presets such as small organization,
+ * large organization or reseller
+ *!
+    :presets list
+    .select preset
+    next                    -> orgid/setup/profile
+
+orgid/setup/profile
+    :orgid
+    .image
+    .name
+    .about?
+    .addresses?
+    .emails?
+    .phones?
+    .websites?
+    next                    -> orgid/console
+
+orgid/console
+    edit org profile        -> orgid/about
+    manage users            -> orgid/people
+    manage content          -> orgid/wiki
+    manage events           -> orgid/events
+    manage services         -> orgid/console/services
+    settings + services     -> orgid/console/settings
+    billing + subscriptions -> orgid/console/billing
+
+orgid/console/services
+    
+orgid/console/settings
+    general settings
+    gamification
+    multi-step authentication           
+    email notifications         
+    sms notifications           
+    email for admins (notifiers)            
+    event phases            
+    message boards          
+    response types          
+    storage + auto delete           
+    images module  
+
+orgid/console/settings/general
+    save                    -> #
+
+orgid/console/billing
+    save                    -> #
+
+orgid/about
+! edit or view organization profile
+    edit or save            -> #
+
+orgid/people
+    .search people
+    .email
+    add user                -> orgid/console/user/add
+    .paste email ids
+    bulk add users          -> orgid/console/user/bulkadd
+    :users list
+    view user
+    edit user roles         -> orgid/console/user/@username/roles
+    .select users
+    add or remove group label
+    deactivate or delete
+
+orgid/people/@username
+! edit or view user profile
+    .name
+    .designation
+    .following
+    :followers
+    report or block follower
+    .about
+    :user group tags
+    :badges and achievements
+    :top posts
+    .filter feed
+    :feed
+    add response
+    :last logged in (admins only)
+
+orgid/wiki
+! edit or view content
+    .search content
+    .new topic title
+    .new topic body
+    add topic
+    .new question
+    .question type
+    .topic tags
+    .disable impact variables?
+    .enable money saved or earned?
+    .question options?
+    .response limit?
+    add question
+    list by topics
+    list by questions
+    .filter list
+
+!* content types:
+ * learning module
+ * topic
+ * poll questions (partial report support)
+ * quiz questions (partial report support)
+ * action questions (full support)
+ * freeform questions (partial report support)
+ *!
+
+orgid/wiki/@topic_or_question ! !* esgwbr
+    :topic or question detail
+    :related questions or topics
+    :related responses
+    add response
+
+orgid/events
+! edit or view events
+    .search events
+    :event list
+    duplicate event
+    event tile
+    :open or closed badge       
+    :event title            
+    :responses count badge      
+    :description            
+    :starts (if)            
+    :ends (if) or phase ends (if)           
+    open message board          
+    add response (if participant)           
+    show report (if admin)          
+    .select events
+    add or remove group label
+    close events
+    open events?
+    delete events
+
+[feedback]
+[footer static]
+test
+orgid/
+orgid/search
+orgid/feedback
+orgid/settings/messages
+orgid/messages
+orgid/settings/notifications
+orgid/notifications
+orgid/settings
+orgid/settings/defaults
+orgid/contactadmin
+orgid/console/user/add
+orgid/console/user/bulkadd
+orgid/console/user/@username/roles
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

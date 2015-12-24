@@ -1,0 +1,90 @@
+/* 
+ * styles for loosewire text
+ * common.less
+ * by @aravindanve
+ *
+ */
+
+/* fonts */
+
+@font-face {
+    font-family: 'Source Code Pro';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../fonts/SourceCodePro-Regular.ttf) format('truetype');
+}
+
+/* fixes */
+
+.cf, .clearfix {
+    &:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
+    }
+    * html & { zoom: 1; } // IE6
+    *:first-child+html & { zoom: 1; } // IE7
+}
+
+.fw, .force-wrap {
+    white-space: pre; // css 2.0
+    white-space: pre-wrap; // css 2.1
+    white-space: pre-line; // css 3.0
+    white-space: -pre-wrap; // opera 4-6
+    white-space: -o-pre-wrap; // opera 7
+    white-space: -moz-pre-wrap; // mozilla
+    white-space: -hp-pre-wrap; // hp printers
+    word-wrap: break-word; // IE 5+
+}
+
+.ep, .ellipsis 
+{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
+
+.nl, .nolist {
+    display: block;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    &  > li {
+        display: block;
+        float: none;
+    }
+}
+
+.na, .noappearance {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+}
+
+.cb, .clearboth {
+    float: none;
+    display: block;
+    clear: both;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+a, a:active, a:hover, a:focus {
+    outline: none;
+    text-decoration: none;
+}
+
+
+// eof

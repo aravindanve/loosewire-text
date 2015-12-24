@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="application-name" content="Loosewire Text {{ version }}">
+    <meta name="application-author" content="Aravindan Ve">
+    <meta name="application-url" content="http://github.com/aravindanve/loosewire-text">
+    <title>{{ project_name }} - Loosewire Text</title>
+    <link rel="stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet/less" type="text/css" href="less/style.less">
+    <script src="js/less-2.5.3.min.js"></script>
+</head>
+<body>
+    <div class="project">
+        <div class="project-header">{{ project_name }} <span class="logo">loosewire text</span></div> 
+        <div class="project-description">{{ project_description }}</div>
+        {{ project_comments }}
+        <div class="project-body">{{ project_body }}</div> 
+    </div>
+    <div class="filters-toggle"><a data-type="filters" href="#"></a></div>
+    <div class="toolbar">
+        <div class="filters-toggle fshide"><a data-type="filters" href="#"></a></div>
+        <ul class="items">
+            <li class="toolbar-header"><span>options</span></li>
+            <li><a data-type="action" data-name="expand-all" href="#">expand all</a></li>
+            <li><a data-type="action" data-name="collapse-all" href="#">collapse all</a></li>
+        </ul>
+        <ul class="items" data-checks-container>
+            <li class="toolbar-header"><span>filters</span><a data-type="badge" data-action="clear-checks" href="#">clear</a></li>
+            <li><a data-type="checkbox" data-name="screens" data-value="false" href="#">screens</a></li>
+            <li><a data-type="checkbox" data-name="partials" data-value="false" href="#">partials</a></li>
+            <li><div class="rule"></div></li>
+            <li><a data-type="checkbox" data-name="data" data-value="false" href="#">data</a></li>
+            <li><a data-type="checkbox" data-name="forms" data-value="false" href="#">forms</a></li>
+            <li><a data-type="checkbox" data-name="actions" data-value="false" href="#">actions</a></li>
+            <li><a data-type="checkbox" data-name="custom" data-value="false" href="#">custom</a></li>
+            <li><a data-type="checkbox" data-name="notes" data-value="false" href="#">notes</a></li>
+        </ul>
+    </div>
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/script.js"></script>
+    <!-- sample object -->
+    <!-- 
+    <div class="obj">
+        <div class="obj-inner-wrapper clickable">
+            <div class="obj-name" style="padding-bottom: 0;">sample screen</div>
+            <div class="obj-description" style="padding-top: 0;">this is a sample screen</div>
+        </div>
+        <div class="obj-inner-wrapper">
+            <div class="obj-contents">
+                <div class="elem elem-data">data field <span class="comm">comment</span></div>
+                <div class="elem elem-form">form field <span class="comm">comment</span></div>
+                <div class="elem elem-action">
+                    <span class="action-name">this is an action</span>
+                    <span class="action-result custom">email</span>
+                    <span class="comm">comment</span>
+                </div>
+                <div class="elem elem-action">
+                    <span class="action-name">this is an action</span>
+                    <span class="action-result obj-pointer">www/home</span>
+                    <span class="comm">comment</span>
+                </div>
+                <div class="elem elem-notes">
+                    <div class="selem-note">test note 1</div>
+                    <div class="selem-note">test note 2<br>more notes</div>
+                </div>
+            </div>
+         </div>
+    </div>
+    // -->
+</body>
+</html>
