@@ -1,21 +1,23 @@
 # loosewire text contencoder
 # generates a single file template for output
 # requires:
+# python 3+ with rjsmin module
 # node.js with less package (lessc) installed
 
 import re
 import base64
 from subprocess import Popen, PIPE
 
+from rjsmin import jsmin
+
 class Contencoder:
     templatefile = 'index.html'
     tempdir = 'temp/'
-    dataurl_prefix = 'application/x-font-truetype;charset=utf-8;base64,'
     exp_attr = r'%s\s*=\s*[\'"]([^\'"]*)[\'"]'
 
     @classmethod
     def repl_cssurl(cls, match, filepath):
-        #  url(application/x-font-truetype;charset=utf-8;base64,...) format('woff'),
+        #  url(application/x-font-truetype;charset=utf-8;base64,...)
         url = match.group(1)
         basedir = re.sub(r'/[^/]*$', '/', filepath)
         filetype = re.search(r'\.([^\.]+)$', url)
@@ -84,7 +86,8 @@ class Contencoder:
         jsfile.close()
 
         # remove indents
-        jstext = re.sub(r'\n\s+', '\n', jstext)
+        # jstext = re.sub(r'\n\s+', '\n', jstext)
+        jstext = jsmin(jstext)
         return '<script type="text/javascript">%s</script>\n' % jstext
 
     @classmethod

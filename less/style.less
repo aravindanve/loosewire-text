@@ -37,6 +37,7 @@
 @variable_parameter: #FD971F;
 
 @grey: #999;
+@blue: #0088FF;
 
 @line-height: 1.2;
 
@@ -223,8 +224,8 @@ a[data-type="filters"] {
 
                 &[data-value="true"] {
                     &:before {
-                        border-color: #0088FF;
-                        background-color: #0088FF;
+                        border-color: @blue;
+                        background-color: @blue;
                         // border-radius: 100px;
                         // height: 1em;
                         // width: 1em;
@@ -244,7 +245,7 @@ a[data-type="filters"] {
             a[data-type="badge"] {
                 text-decoration: none;
                 color: @background;
-                background-color: #0088FF;
+                background-color: @blue;
                 padding: 2px 8px;
                 border-radius: 20px;
                 font-size: 12px;
@@ -317,6 +318,15 @@ a[data-type="filters"] {
 .clickable() {
     cursor: pointer;
     .hover-color-light;
+}
+
+.clickable-u {
+    .clickable;
+    display: inline-block;
+    padding: 6px 8px;
+    margin: 0 -8px;
+    border-radius: 4px;
+    color: @blue;
 }
 
 .project {

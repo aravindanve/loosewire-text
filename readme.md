@@ -18,6 +18,7 @@ Copy `dist/lwtx.py` to your `bin` directory and don't forget to do `chmod +x lwt
 ## Building from source
 ### Requirements
 * Python 3+
+* rjsmin python module
 * Node.js
 * Lessc (npm less package)
 

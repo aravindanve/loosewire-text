@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>fileTypes</key>
+	<array>
+		<string>lwtx</string>
+	</array>
+	<key>name</key>
+	<string>Loosewire Text</string>
+	<key>patterns</key>
+	<array>
+		<dict>
+			<key>comment</key>
+			<string>wildcard keyword</string>
+			<key>match</key>
+			<string>(?:\*|\?|\|)</string>
+			<key>name</key>
+			<string>keyword</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>\!\*</string>
+			<key>comment</key>
+			<string>multiline comments</string>
+			<key>end</key>
+			<string>\*\!</string>
+			<key>name</key>
+			<string>comment</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>single-line comments</string>
+			<key>match</key>
+			<string>\!.*$</string>
+			<key>name</key>
+			<string>comment</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>custom tags</string>
+			<key>match</key>
+			<string>\#[\w\s\t\(\)\+]+</string>
+			<key>name</key>
+			<string>string</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>dynamic data</string>
+			<key>match</key>
+			<string>\@[\w\s\t\(\)\+]+</string>
+			<key>name</key>
+			<string>support.constant</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>partials</string>
+			<key>match</key>
+			<string>\[[\w\s\t\(\)\+]+\]\??</string>
+			<key>name</key>
+			<string>storage.type</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>data element</string>
+			<key>match</key>
+			<string>^\s+\:[\w\s\t\(\)\+\?]+</string>
+			<key>name</key>
+			<string>entity.name.function</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>form element</string>
+			<key>match</key>
+			<string>^\s+\.[\w\s\t\(\)\+\?]+</string>
+			<key>name</key>
+			<string>constant.language</string>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>variable.parameter</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>keyword</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>text.lwtx.screen</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>action and result</string>
+			<key>match</key>
+			<string>^\s+(\w[\w\s\t\(\)\+\?]*)(\-\&gt;)(\s*[\w\s\t\/\(\)]+)</string>
+			<key>name</key>
+			<string>text.lwtx.action</string>
+		</dict>
+	</array>
+	<key>scopeName</key>
+	<string>text.lwtx</string>
+	<key>uuid</key>
+	<string>8c2d1df9-56d9-41bc-afa3-3a2140e13cf1</string>
+</dict>
+</plist>

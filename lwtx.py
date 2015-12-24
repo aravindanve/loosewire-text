@@ -2,6 +2,8 @@
 # loosewire text compiler
 # fileTypes: .lwtx
 # output: .lwtx.html
+# requires:
+# python 3+
 
 VERSION = '1.0'
 
@@ -160,6 +162,7 @@ class ScreenRegister:
         self.screens = Register(False)
         self.name = None
         self.description = None
+        self.specialvars = {}
 
         # self.last_screenid = None
         # self.last_elemid = None
@@ -275,12 +278,27 @@ class ScreenRegister:
         elif type(comment) != list:
             comment = [comment]
 
+        comment = [x.strip() for x in comment]
+
+        # process and remove special vars
+        for index, commentpart in enumerate(comment):
+            comment[index] = re.sub(
+                r'%{((?:(?!}%).)+):((?:(?!}%).)+)}%', 
+                self.repl_spl, 
+                commentpart
+            )
+
         if multiline:
             # process *s
             _comment = [x.strip(' *') for x in comment]
             self.comm_buff += ['<br />\n'.join(_comment)]
         else:
             self.comm_buff += comment
+
+    def repl_spl(self, match):
+        self.specialvars[match.group(1).strip(_stnr)] = \
+            match.group(2).strip(_stnr)
+        return ''
 
     def link_objects(self):
         self.unknowns = []
@@ -353,7 +371,8 @@ class ScreenRegister:
                                     if self.is_partial(_res0):
                                         _res0 = markup.partial % {'partial': _res0}
                                     __results += markup.elem_action_result_objpointer % {
-                                        'elemid': _res0
+                                        '_result': result[0],
+                                        'result': _res0
                                     }
                                 else:
                                     __results += markup.elem_action_result_custom % {
@@ -391,6 +410,7 @@ class ScreenRegister:
             _screenid = re.sub(r'(\*)', markup.keyword % {'keyword': r'\1'}, _screenid)
 
             body += markup.obj % {
+                '_screenid': screen.key,
                 'screenid': _screenid,
                 'description': __descriptions,
                 'contents': __body
@@ -404,6 +424,17 @@ class ScreenRegister:
             project_comments = markup.project_comments % {
                 'comments': project_comments
             }
+
+        if 'start_screen' in self.specialvars:
+            project_comments += markup.project_comments % {
+                'comments': markup.clickable_pointer % {
+                    'ref': self.specialvars['start_screen'],
+                    'label': self.specialvars['start_screen_label'] \
+                        if 'start_screen_label' in self.specialvars \
+                        else 'jump to ' + self.specialvars['start_screen']
+                }
+
+            } + '\n'
 
         mkp_ren = re.sub(
             r'{{\s*((?:(?!}}|\s).)*)\s*}}', 
@@ -446,7 +477,7 @@ def match_line(exp, line, indent='', match_deeper=False):
 class markup:
     span = '<span>%(content)s</span>'
     obj = """\
-<div class="obj">
+<div class="obj" data-screen-id="%(_screenid)s">
 <div class="obj-inner-wrapper clickable" data-collapse-toggle>
 <div class="obj-name">%(screenid)s</div>
 <div class="obj-description">%(description)s</div>
@@ -473,13 +504,14 @@ class markup:
 <span class="action-result custom">%(custom)s</span>\
 """
     elem_action_result_objpointer = """\
-<span class="action-result obj-pointer">%(elemid)s</span>\
+<span class="action-result obj-pointer" data-obj-ref="%(_result)s">%(result)s</span>\
 """
     elem_action_result_group_sep = '<span class="result-sep"></span>'
     elem_notes = '<div class="elem elem-notes">%(notes)s</div>'
     elem_notes_note = '<div class="selem-note">%(note)s</div>'
     project_comments = '<div class="project-comments">%(comments)s</div>'
     project_comment = '<div class="project-comment">%(comment)s</div>'
+    clickable_pointer = '<span class="clickable-u" data-obj-ref="%(ref)s">%(label)s</span>'
 
 # define exps
 exp_indent = re.compile(r'^[\s\t]*')

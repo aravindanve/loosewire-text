@@ -1,9 +1,12 @@
 ! my web project
-! screens, data, forms and actions for my web projeect
+! screens, data, forms and actions for my web project
 
 !*
  * by @aravindanve
  *!
+
+! %{start_screen_label: jump to homepage}%
+! %{start_screen: www/}%
 
 *
     [feedback]
@@ -224,7 +227,7 @@ orgid/wiki
  * freeform questions (partial report support)
  *!
 
-orgid/wiki/@topic_or_question ! !* esgwbr
+orgid/wiki/@topic_or_question ! esgwbr
     :topic or question detail
     :related questions or topics
     :related responses

@@ -1,4 +1,3 @@
-
 $(function () {
     'use strict'
 
@@ -145,44 +144,83 @@ $(function () {
         }
     });
 
+    // function collapse_toggle(context) {
+    //     var tm = 300,
+    //         $ref = $(context),
+    //         $collapsible = $ref.parent().find('[data-collapsible]');
+    //     if ($collapsible.length) {
+    //         if ('true' === $collapsible.attr('data-collapsed')) {
+    //             $collapsible.finish();
+    //             if ($collapsible.attr('data-open-height')) {
+    //                 $collapsible.animate({
+    //                     'height': $collapsible.attr('data-open-height')
+    //                 }, tm, function () {
+    //                     $collapsible.css('height', '');
+    //                     $collapsible.attr('data-collapsed', 'false');
+    //                     $ref.attr('data-collapsed', 'false');
+    //                     $collapsible.attr('data-open-height', $collapsible.height());
+    //                 });
+    //             } else {
+    //                 $collapsible.css('height', '');
+    //                 $collapsible.attr('data-collapsed', 'false');
+    //                 $ref.attr('data-collapsed', 'false');
+    //                 $collapsible.attr('data-open-height', $collapsible.height());
+    //             }
+    //         } else {
+    //             $collapsible.finish();
+    //             $collapsible.animate({
+    //                 'height': '0'
+    //             }, tm, function () {
+    //                 $collapsible.css('height', '0');
+    //                 $collapsible.attr('data-collapsed', 'true');
+    //                 $ref.attr('data-collapsed', 'true');
+    //             });
+    //         }
+    //     }
+    // }
+
     function collapse_toggle(context) {
-        var tm = 300,
-            $ref = $(context),
+        var $ref = $(context),
             $collapsible = $ref.parent().find('[data-collapsible]');
         if ($collapsible.length) {
             if ('true' === $collapsible.attr('data-collapsed')) {
-                $collapsible.finish();
-                if ($collapsible.attr('data-open-height')) {
-                    $collapsible.animate({
-                        'height': $collapsible.attr('data-open-height')
-                    }, tm, function () {
-                        $collapsible.css('height', '');
-                        $collapsible.attr('data-collapsed', 'false');
-                        $ref.attr('data-collapsed', 'false');
-                        $collapsible.attr('data-open-height', $collapsible.height());
-                    });
-                } else {
-                    $collapsible.css('height', '');
-                    $collapsible.attr('data-collapsed', 'false');
-                    $ref.attr('data-collapsed', 'false');
-                    $collapsible.attr('data-open-height', $collapsible.height());
-                }
+                $collapsible.css('height', '');
+                $collapsible.attr('data-collapsed', 'false');
+                $ref.attr('data-collapsed', 'false');
             } else {
-                $collapsible.finish();
-                $collapsible.animate({
-                    'height': '0'
-                }, tm, function () {
-                    $collapsible.css('height', '0');
-                    $collapsible.attr('data-collapsed', 'true');
-                    $ref.attr('data-collapsed', 'true');
-                });
+                $collapsible.css('height', '0');
+                $collapsible.attr('data-collapsed', 'true');
+                $ref.attr('data-collapsed', 'true');
             }
         }
     }
 
-    $('[data-collapse-toggle]').on('click', function (e) {
+    $('[data-collapse-toggle]').on('click', function (e) { //test
         collapse_toggle(this);
     });
+
+    // function expand_all() {
+    //     $(document)
+    //         .find('[data-collapse-toggle]')
+    //         .attr('data-collapsed', 'false')
+    //         .end()
+    //         .find('[data-collapsible]')
+    //         .css('height', '')
+    //         .attr('data-collapsed', 'false')
+    //         .each(function () {
+    //             $(this).attr('data-open-height', $(this).height());
+    //         });
+    // }
+
+    // function collapse_all() {
+    //     $(document)
+    //         .find('[data-collapse-toggle]')
+    //         .attr('data-collapsed', 'true')
+    //         .end()
+    //         .find('[data-collapsible]')
+    //         .css('height', '0')
+    //         .attr('data-collapsed', 'true');
+    // }
 
     function expand_all() {
         $(document)
@@ -191,10 +229,7 @@ $(function () {
             .end()
             .find('[data-collapsible]')
             .css('height', '')
-            .attr('data-collapsed', 'false')
-            .each(function () {
-                $(this).attr('data-open-height', $(this).height());
-            });
+            .attr('data-collapsed', 'false');
     }
 
     function collapse_all() {
@@ -213,6 +248,63 @@ $(function () {
 
     $('[data-name="collapse-all"]').on('click', function (e) {
         collapse_all();
+    });
+
+    var __stepObj = {stepValue: 0.16};
+
+    $('[data-obj-ref]').on('click', function (e) {
+        var $obj = $('[data-screen-id="' + $(this).attr('data-obj-ref') + '"]');
+        if ($obj.length) {
+            $(window).scrollTop(Math.max(0, $obj.position().top - 20));
+            // highlight
+            $(__stepObj).stop(true, true);
+            (function ($ref) {
+                $(__stepObj).animate({
+                    stepValue: 0
+                }, {
+                    duration: 1500,
+                    start: function () {
+                        // console.log(this);
+                        this.stepValue = 0.16;
+                        $ref.css('backgroundColor', 'rgba(100,180,255,' +
+                            this.stepValue + ')');
+                    }, 
+                    step: function (now, fx) {
+                        // console.log(this);
+                        $ref.css('backgroundColor', 'rgba(100,180,255,' +
+                            this.stepValue + ')');
+                    },
+                    complete: function () {
+                        // console.log(this);
+                        // console.log('complete');
+                        $ref.css('backgroundColor', '');
+                        this.stepValue = 0.16;
+                    }
+                });
+            })($obj);
+            
+            // $obj.finish(true, true);
+            // $obj.animate({
+            //     '-step-value': '0.16'
+            // }, {
+            //     duration: 2000,
+            //     start: function () {
+            //         $(this).css('backgroundColor', 'rgba(100,180,255,0.16)');
+            //         console.log('start: ' + $(this).css('backgroundColor'));
+            //     },
+            //     step: function(now, fx) {
+            //         // $(this).css('backgroundColor', 'rgba(100,180,255,' + 
+            //         //     (0.16 - now) + ')')
+            //         // console.log('backgroundColor', 'rgba(100,180,255,' + 
+            //         //     (0.16 - now) + ')');
+            //         // console.log(fx.elem.id + " " + fx.prop + ": " + now);
+            //     },
+            //     complete: function () {
+            //         // $(this).css('backgroundColor', '');
+            //         // console.log('complete: ' + $(this).css('backgroundColor'));
+            //     }
+            // });
+        }
     });
 
     $('.project-body').find('.obj').each(function () {
@@ -234,9 +326,9 @@ $(function () {
         if (min_width) {
             min_width += 10;
             var $action_elems = $elems.find('.action-name');
-            $action_elems.css('min-width', Math.min(max_width, min_width));
+            $action_elems.css('minWidth', Math.min(max_width, min_width));
             $elems.not($action_elems.parents('.elem'))
-                .css('min-width', Math.min(max_width, min_width));
+                .css('minWidth', Math.min(max_width, min_width));
         }
     });
 
