@@ -9,6 +9,7 @@ action results, comments, notes and interactive screen linking.
 Found in the `dist/` directory
 ### Requirements
 * Python 3+
+
 ### Compile a .lwtx file
 Copy `dist/lwtx.py` to your `bin` directory and don't forget to do `chmod +x lwtx.py`
 
@@ -19,6 +20,7 @@ Copy `dist/lwtx.py` to your `bin` directory and don't forget to do `chmod +x lwt
 * Python 3+
 * Node.js
 * Lessc (npm less package)
+
 ### Build
 From the project directory `./`, run:
 
