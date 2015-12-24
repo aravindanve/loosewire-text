@@ -1,2 +1,1 @@
-fix animated uncollapse after filtering
-add object linking and highlight
+single file distribution

@@ -329,6 +329,37 @@ a[data-type="filters"] {
     color: @blue;
 }
 
+.sticky-alert {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    padding: 10px;
+    padding-right: 200px + 10px;
+    pointer-events: none;
+
+    .alert {
+        pointer-events: auto;
+        text-align: center;
+        max-width: 400px;
+        margin: 15px auto 0;
+        padding: 8px 15px;
+        border-radius: 4px;
+        
+        &.red {
+            background-color: #f30;
+            color: @white;
+        }
+    }
+}
+
+@media only screen and (max-width : 600px) {
+    .sticky-alert {
+        padding-right: 10px;
+    }
+}
+
 .project {
     // margin-top: 31px;
 

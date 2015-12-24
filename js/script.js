@@ -250,11 +250,34 @@ $(function () {
         collapse_all();
     });
 
+    var alertDelayTimeout = null;
+
+    function show_alert(alertString) {
+        var $stickyAlert = $('.sticky-alert'),
+            $alertContent = $('[data-alert-content]');
+
+        $stickyAlert.stop(true, true);
+        $alertContent.html(alertString);
+        $stickyAlert.css('display', 'block');
+        clearTimeout(alertDelayTimeout);
+        alertDelayTimeout = setTimeout(function () {
+            $stickyAlert.animate({
+                opacity: 0
+            }, 500, function () {
+                $(this).css('display', '').css('opacity', '');
+            });
+        }, 2000);
+    }
+
     var __stepObj = {stepValue: 0.16};
 
     $('[data-obj-ref]').on('click', function (e) {
         var $obj = $('[data-screen-id="' + $(this).attr('data-obj-ref') + '"]');
         if ($obj.length) {
+            if ('none' === $obj.css('display')) {
+                return show_alert('The object is currently not visible. ' + 
+                    'Try clearing some filters.');
+            }
             $(window).scrollTop(Math.max(0, $obj.position().top - 20));
             // highlight
             $(__stepObj).stop(true, true);
