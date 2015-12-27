@@ -1,7 +1,7 @@
 ! my web project
 ! screens, data, forms and actions for my web project
 
-!*
+!* 
  * by @aravindanve
  *!
 
@@ -20,7 +20,7 @@ orgid/*
     [footer]
 
 [titlebar static]
-    logo action             -> www/ | test
+    logo action             -> www/ | test/*
     log in                  -> www/login (1)
     sign up?                -> #flash message #email              
 
@@ -256,7 +256,7 @@ orgid/events
 
 [feedback]
 [footer static]
-test
+test/*
 orgid/
 orgid/search
 orgid/feedback

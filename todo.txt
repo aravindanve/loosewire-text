@@ -1,1 +1,2 @@
+color @codeXYZ vars
 single file distribution

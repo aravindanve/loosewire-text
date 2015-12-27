@@ -291,6 +291,7 @@ class ScreenRegister:
         if multiline:
             # process *s
             _comment = [x.strip(' *') for x in comment]
+            _comment = [x for x in _comment if x.strip(_stnr) != '']
             self.comm_buff += ['<br />\n'.join(_comment)]
         else:
             self.comm_buff += comment
@@ -370,6 +371,12 @@ class ScreenRegister:
                                     _res0 = result[0]
                                     if self.is_partial(_res0):
                                         _res0 = markup.partial % {'partial': _res0}
+
+                                    _res0 = re.sub(
+                                        r'(@[\w\s\t\(\)\+]+)', 
+                                        markup.dyndata % {'dyndata': r'\1'}, 
+                                        _res0
+                                    )
                                     __results += markup.elem_action_result_objpointer % {
                                         '_result': result[0],
                                         'result': _res0
@@ -408,6 +415,7 @@ class ScreenRegister:
             if self.is_partial(_screenid):
                 _screenid = markup.partial % {'partial': _screenid}
             _screenid = re.sub(r'(\*)', markup.keyword % {'keyword': r'\1'}, _screenid)
+            _screenid = re.sub(r'(@[\w\s\t\(\)\+]+)', markup.dyndata % {'dyndata': r'\1'}, _screenid)
 
             body += markup.obj % {
                 '_screenid': screen.key,
@@ -490,6 +498,7 @@ class markup:
     comment = '<span class="comm">%(comment)s</span>'
     partial = '<span class="obj-partial">%(partial)s</span>'
     keyword = '<span class="obj-keyword">%(keyword)s</span>'
+    dyndata = '<span class="obj-dyndata">%(dyndata)s</span>'
     elem_data = """\
 <div class="elem elem-data"><span>%(elemid)s</span>%(comments)s</div>\
 """
