@@ -1,0 +1,91 @@
+# [PackageDev] target_format: plist, ext: tmLanguage
+---
+name: Loosewire Text
+scopeName: text.lwtx
+fileTypes: [lwtx]
+uuid: 8c2d1df9-56d9-41bc-afa3-3a2140e13cf1
+    
+patterns:
+  - comment: wildcard keyword
+    match: (?:\*|\?|\|)
+    name: keyword
+
+  - comment: multiline comments
+    name: comment
+    begin: \!\*
+    end: \*\!
+
+  - comment: single-line comments
+    match: \!.*$
+    name: comment
+
+  - comment: custom tags
+    match: \#[\w\s\t\(\)\+,]+
+    name: string
+
+  - comment: dynamic data
+    match: \@[\w\s\t\(\)\+,]+
+    name: support.constant
+
+  - comment: partials
+    match: \[[\w\s\t\(\)\+,]+\]\??
+    name: storage.type
+
+  - comment: data element
+    match: ^\s+\:[\w\s\t\(\)\+,\?]+
+    name: entity.name.function
+
+  - comment: form element
+    match: ^\s+\.[\w\s\t\(\)\+,\?]+
+    name: constant.language
+
+  - comment: action and result
+    match: ^\s+(\w[\w\s\t\(\)\+,\?]*)(\-\>)(\s*[\w\s\t\/\(\),]+)
+    name: text.lwtx.action
+    captures: 
+      '1': {name: variable.parameter}
+      '2': {name: keyword}
+      '3': {name: text.lwtx.screen}
+
+  # - match: (?i:m)y\s+[Rr]egex
+  #   name: string.format
+  #   comment: this is a comment
+  # - match: ^one\b
+  #   name: comment
+  # - match: two\b
+  #   name: string
+  # - match: three
+  #   name: constant.numeric
+  # - match: four\b
+  #   name: constant.language
+  # - match: five\b
+  #   name: constant.other
+  # - match: six\b
+  #   name: variable
+  # - match: seven\b
+  #   name: keyword
+  # - match: eight\b
+  #   name: storage
+  # - match: nine\b
+  #   name: storage.type
+  # - match: ten\b
+  #   name: entity.name.class
+  # - match: eleven
+  #   name: entity.other.inherited-class
+  # - match: twelve
+  #   name: entity.name.function
+  # - match: thirteen
+  #   name: variable.parameter
+  # - match: fourteen
+  #   name: entity.name.tag
+  # - match: fifteen
+  #   name: entity.other.attribute-name
+  # - match: sixteen
+  #   name: support.function
+  # - match: seventeen
+  #   name: support.constant
+  # - match: eighteen
+  #   name: support.type
+  # - match: nineteen
+  #   name: support.other.variable
+...

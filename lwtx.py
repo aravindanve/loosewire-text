@@ -373,7 +373,7 @@ class ScreenRegister:
                                         _res0 = markup.partial % {'partial': _res0}
 
                                     _res0 = re.sub(
-                                        r'(@[\w\s\t\(\)\+]+)', 
+                                        r'(@[\w\s\t\(\)\+,]+)', 
                                         markup.dyndata % {'dyndata': r'\1'}, 
                                         _res0
                                     )
@@ -415,7 +415,7 @@ class ScreenRegister:
             if self.is_partial(_screenid):
                 _screenid = markup.partial % {'partial': _screenid}
             _screenid = re.sub(r'(\*)', markup.keyword % {'keyword': r'\1'}, _screenid)
-            _screenid = re.sub(r'(@[\w\s\t\(\)\+]+)', markup.dyndata % {'dyndata': r'\1'}, _screenid)
+            _screenid = re.sub(r'(@[\w\s\t\(\)\+,]+)', markup.dyndata % {'dyndata': r'\1'}, _screenid)
 
             body += markup.obj % {
                 '_screenid': screen.key,
