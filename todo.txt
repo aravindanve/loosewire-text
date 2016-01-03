@@ -1,2 +1,3 @@
-color @codeXYZ vars
+link partial objs in action name
+show wildcard partials and link to respective objs
 single file distribution

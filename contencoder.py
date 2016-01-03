@@ -10,7 +10,10 @@ from subprocess import Popen, PIPE
 
 from rjsmin import jsmin
 
+BASEDIR = re.sub(r'/[^/]*$', '/', __file__).rstrip('/') + '/'
+
 class Contencoder:
+    # relative paths only
     templatefile = 'index.html'
     tempdir = 'temp/'
     exp_attr = r'%s\s*=\s*[\'"]([^\'"]*)[\'"]'
@@ -32,7 +35,7 @@ class Contencoder:
 
         data_url += ';charset=utf-8;base64,'
 
-        urlfile = open(basedir + url, 'rb')
+        urlfile = open(BASEDIR + basedir + url, 'rb')
         urlcontent = urlfile.read()
         urlfile.close()
 
@@ -49,14 +52,14 @@ class Contencoder:
         link_href = re.search(cls.exp_attr  % 'href', attrs)
 
         if link_rel.group(1) == 'stylesheet/less':
-            proc = Popen(['lessc', link_href.group(1)], stdout=PIPE)
+            proc = Popen(['lessc', BASEDIR + link_href.group(1)], stdout=PIPE)
             csstext = proc.stdout.read().decode(encoding='utf-8')
             try:
                 proc.kill
             except:
                 raise
         else:
-            cssfile = open(link_href.group(1), 'r')
+            cssfile = open(BASEDIR + link_href.group(1), 'r')
             csstext = cssfile.read()
             cssfile.close()
 
@@ -81,7 +84,7 @@ class Contencoder:
             return match.group(0)
         if re.match(r'^.*\bless(?:(?:\b|_).*)?.js$', script_src.group(1)):
             return ''
-        jsfile = open(script_src.group(1), 'r')
+        jsfile = open(BASEDIR + script_src.group(1), 'r')
         jstext = jsfile.read()
         jsfile.close()
 
@@ -92,7 +95,7 @@ class Contencoder:
 
     @classmethod
     def get_template(cls, writetemp=False):
-        tmpfile = open(cls.templatefile, 'r')
+        tmpfile = open(BASEDIR + cls.templatefile, 'r')
         template = tmpfile.read()
         tmpfile.close()
 
@@ -112,7 +115,7 @@ class Contencoder:
         )
 
         if writetemp:
-            outfile = open(cls.tempdir + cls.templatefile, 'w')
+            outfile = open(BASEDIR + cls.tempdir + cls.templatefile, 'w')
             outfile.write(template)
             outfile.close()
 

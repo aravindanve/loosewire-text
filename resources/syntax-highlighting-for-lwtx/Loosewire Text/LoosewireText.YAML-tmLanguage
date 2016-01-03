@@ -20,27 +20,27 @@ patterns:
     name: comment
 
   - comment: custom tags
-    match: \#[\w\s\t\(\)\+,]+
+    match: \#[\w\s\t\(\)\+,\-]+
     name: string
 
   - comment: dynamic data
-    match: \@[\w\s\t\(\)\+,]+
+    match: \@[\w\s\t\(\)\+,\-]+
     name: support.constant
 
   - comment: partials
-    match: \[[\w\s\t\(\)\+,]+\]\??
+    match: \[[\w\s\t\(\)\+,\-]+\]\??
     name: storage.type
 
   - comment: data element
-    match: ^\s+\:[\w\s\t\(\)\+,\?]+
+    match: ^\s+\:[\w\s\t\(\)\+,\-\?]+
     name: entity.name.function
 
   - comment: form element
-    match: ^\s+\.[\w\s\t\(\)\+,\?]+
+    match: ^\s+\.[\w\s\t\(\)\+,\-\?]+
     name: constant.language
 
   - comment: action and result
-    match: ^\s+(\w[\w\s\t\(\)\+,\?]*)(\-\>)(\s*[\w\s\t\/\(\),]+)
+    match: ^\s+(\w[\w\s\t\(\)\+,\-\?]*)(\-\>)(\s*[\w\s\t\/\(\),\-]+)
     name: text.lwtx.action
     captures: 
       '1': {name: variable.parameter}
